@@ -29,3 +29,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
