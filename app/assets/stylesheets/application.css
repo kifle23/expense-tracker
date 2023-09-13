@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- @font-face {
+@font-face {
   font-family: 'Proxima-Nova';
   src: url('../fonts/Proxima Nova Font.otf');
 }
