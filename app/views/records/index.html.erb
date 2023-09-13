@@ -1,0 +1,32 @@
+<div class="c_card card flex-row align-items-center p-2 gap-4">
+  <%= image_tag @category.icon %>
+  <div class="card_info">
+    <h2><%= @category.name %></h2>
+    <span class="text-muted">Total: $<%= @category.records.sum(&:amount) %></span>
+  </div>
+</div>
+<div class="d-flex align-items-center justify-content-around mt-3 mb-5">
+  <%= link_to "Back", categories_path, class: "btn btn-secondary" %>
+  <h3>Transactions</h3>
+  <i></i>
+</div>
+  <% if @records.count > 0 %>
+    <div class="d-flex flex-column gap-3">
+      <% @records.each do |record| %>
+        <div class="card p-2">
+          <div class="d-flex justify-content-between">
+            <span><%= record.name %></span>
+            <div class="d-flex flex-column">
+              <span>$<%= record.amount %></span>
+              <span><%= l record.created_at.to_date, format: :long %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+  <h2 class="text-center">No Records found.</h2>
+  <% end %>
+<div class="footer d-flex flex-column p-4">
+  <%= link_to "Create a new Record", new_category_record_path(@category), class: "btn back-green text-white" %>
+</div>

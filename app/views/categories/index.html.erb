@@ -1,0 +1,22 @@
+<h1 class="text-center my-5">Categories</h1>
+<% if @categories.count > 0 %>
+  <div class="d-flex flex-column gap-3">
+    <% @categories.each do |category| %>
+      <div class="c_card card flex-row align-items-center p-2 gap-4">
+        <%= image_tag category.icon %>
+        <div class="card_info">
+          <div>
+            <%= link_to category.name, category_records_path(category) %>
+            <%= button_to "Delete", category_path(category), method: :delete, class: "btn btn-danger" %>
+          </div>
+          <span class="text-muted"><%= l category.created_at.to_date, format: :long %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h2 class="text-center">No categories found.</h2>
+<% end %>
+<div class="footer d-flex flex-column p-4">
+  <%= link_to "Add a new Category", new_category_path, class: "btn back-green text-white" %>
+</div>
