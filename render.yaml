@@ -1,18 +1,18 @@
 databases:
-  - name: mysite
-    databaseName: mysite
-    user: mysite
+  - name: expense
+    databaseName: expense_t4tk
+    user: expense_t4tk_user
 
 services:
   - type: web
-    name: mysite
+    name: expense-tracker
     runtime: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: mysite
+          name: expense_t4tk
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
