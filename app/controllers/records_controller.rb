@@ -13,8 +13,8 @@ class RecordsController < ApplicationController
   def create
     @category = current_user.categories.find(params[:category_id])
     @record = current_user.records.new(record_params)
-    @record.category_ids = params[:record][:category_ids] || [] 
-  
+    @record.category_ids = params[:record][:category_ids] || []
+
     if @record.save
       flash.now[:notice] = "#{@record.name} created successfully!"
       redirect_to category_records_path(@category)
