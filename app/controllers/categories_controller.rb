@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
   def index
     if user_signed_in?
-      @categories = current_user.categories
+      @categories = current_user.categories.includes(:records)
     else
       render 'splash'
     end
