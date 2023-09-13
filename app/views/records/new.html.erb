@@ -13,6 +13,16 @@
       <%= f.label :amount, class: "form-label" %><br />
       <%= f.number_field :amount, class: "form-control" %>
     </div>
+    <div class="mb-3">
+        <%= f.label :categories, 'Select Category/Categories', class: "form-label" %><br>
+        <%= f.collection_check_boxes :category_ids, current_user.categories, :id, :name, class: 'form-check' do |c| %>
+          <div class="form-check">
+            <%= c.check_box(class: 'form-check-input', checked: @category.id == c.value) %>
+            <%= c.label class: 'form-check-label' %><br>
+          </div>
+        <% end %>
+    </div>
+    
     <div class="d-flex justify-content-center">
       <%= f.submit "Create Record", class: "btn btn-primary" %>
     </div>
