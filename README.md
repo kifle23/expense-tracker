@@ -162,6 +162,8 @@ Give a ⭐️ if you like this project!
 
 ## 🔭Acknowledgments <a name="acknowledgements"></a>
 
+- The original design idea for this web page was created by [Gregoire Vella on Behance](https://www.behance.net/gregoirevella).
+
 - I would like to thank [Microverse](https://www.microverse.org/) for giving me a wonderful opportunity to work on this project.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
