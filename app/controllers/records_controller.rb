@@ -1,70 +1,36 @@
 class RecordsController < ApplicationController
   before_action :authenticate_user!
-
-  # GET /records or /records.json
   def index
-    @records = Record.all
+    @category = current_user.categories.find(params[:category_id])
+    @records = @category.records.order(created_at: :desc)
   end
 
-  # GET /records/1 or /records/1.json
-  def show
-  end
-
-  # GET /records/new
   def new
-    @record = Record.new
+    @category = current_user.categories.find(params[:category_id])
+    @record = @category.records.new
   end
 
-  # GET /records/1/edit
-  def edit
-  end
-
-  # POST /records or /records.json
   def create
-    @record = Record.new(record_params)
-
-    respond_to do |format|
-      if @record.save
-        format.html { redirect_to record_url(@record), notice: "Record was successfully created." }
-        format.json { render :show, status: :created, location: @record }
+    @category = current_user.categories.find(params[:category_id])
+    @record = current_user.records.new(record_params)
+    if @record.save
+      cateogry_record = @record.category_records.create(category_id: @category.id, record_id: @record_id)
+      if cateogry_record.save
+        flash.now[:notice] = "#{@record.name} created successfully!"
+        redirect_to category_records_path(@category)
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
+        flash.now[:alert] = 'Something went wrong!'
+        render :new
       end
-    end
-  end
-
-  # PATCH/PUT /records/1 or /records/1.json
-  def update
-    respond_to do |format|
-      if @record.update(record_params)
-        format.html { redirect_to record_url(@record), notice: "Record was successfully updated." }
-        format.json { render :show, status: :ok, location: @record }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /records/1 or /records/1.json
-  def destroy
-    @record.destroy
-
-    respond_to do |format|
-      format.html { redirect_to records_url, notice: "Record was successfully destroyed." }
-      format.json { head :no_content }
+    else
+      flash.now[:alert] = @record.errors.full_messages.first
+      render :new
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_record
-      @record = Record.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def record_params
-      params.require(:record).permit(:name, :amount, :user_id)
-    end
+  def record_params
+    params.require(:record).permit(:name, :amount)
+  end
 end
